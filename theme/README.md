@@ -1,4 +1,4 @@
-#Install Theme Script
+# Install Theme
 
 Theme
 Blue
