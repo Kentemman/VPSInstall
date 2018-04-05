@@ -8,7 +8,7 @@ cd ~ > /dev/null 2>&1 &
 mkdir KEDL > /dev/null 2>&1 &
 cd KEDL
 apt-get -y install zip unzip
-wget http://207.148.127.35:85/api/theme/sao.zip
+wget https://raw.github.com/Kentemman/api/master/theme/sao.zip
 unzip sao.zip
 rm -f sao.zip
 mv asset /home/vps/public_html > /dev/null 2>&1 &
