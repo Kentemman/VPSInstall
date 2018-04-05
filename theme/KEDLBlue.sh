@@ -8,7 +8,7 @@ cd ~ > /dev/null 2>&1 &
 mkdir KEDL > /dev/null 2>&1 &
 cd KEDL
 apt-get -y install zip unzip
-wget https://raw.github.com/Kentemman/api/master/theme/BlueTheme.zip
+wget https://raw.githubusercontent.com/Kentemman/api/master/theme/BlueTheme.zip
 unzip BlueTheme.zip
 rm -f BlueTheme.zip
 mv asset /home/vps/public_html > /dev/null 2>&1 &
