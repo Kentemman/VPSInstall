@@ -5,3 +5,5 @@ wget https://raw.githubusercontent.com/Kentemman/api/master/theme/KEDLBlue.sh &&
 
 Green Theme
 wget https://raw.githubusercontent.com/Kentemman/api/master/theme/KEDLGreen.sh && chmod +x KEDLGreen.sh && ./KEDLGreen.sh
+
+-KEDL VPS Theme Maker
