@@ -13,4 +13,5 @@ unzip sao.zip
 rm -f sao.zip
 mv asset /home/vps/public_html > /dev/null 2>&1 &
 mv view /home/vps/public_html > /dev/null 2>&1 &
+rm -f /root/KEDLsao.sh
 echo "Enjoy using My Theme -KEDL Theme Maker"
