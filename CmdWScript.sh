@@ -417,6 +417,7 @@ echo "unset HISTFILE" >> /etc/profile
 chmod 755 /home/vps/public_html/config
 chmod 644 /home/vps/public_html/config/inc.php
 chmod 644 /home/vps/public_html/config/route.php
+chmod 777 application/config/database.php
 
 # info
 clear
