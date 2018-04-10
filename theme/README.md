@@ -8,4 +8,4 @@ wget https://raw.githubusercontent.com/Kentemman/api/master/theme/KEDLBlue.sh &&
 ```
 wget https://raw.githubusercontent.com/Kentemman/api/master/theme/KEDLGreen.sh && chmod +x KEDLGreen.sh && ./KEDLGreen.sh
 ```
-### -KEDL VPS Theme Maker
+#### -KEDL VPS Theme Maker
