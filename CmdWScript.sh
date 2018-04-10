@@ -347,7 +347,7 @@ service nginx restart
 
 apt-get -y install zip unzip
 cd /home/vps/public_html
-wget $source/OCS.zip
+wget https://raw.githubusercontent.com/Kentemman/api/master/OCS.zip
 unzip OCS.zip
 rm -f OCS.zip
 chown -R www-data:www-data /home/vps/public_html
