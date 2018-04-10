@@ -104,7 +104,8 @@ apt-get -y install nginx
 apt-get -y install nano iptables dnsutils openvpn screen whois ngrep unzip unrar
 
 echo "clear" >> .bashrc
-echo 'echo -e ""' >> .bashrc
+echo 'echo -e "                                              "' >> .bashrc
+echo 'echo -e "                                              "' >> .bashrc
 echo 'echo -e "       ##   ##  ######## #######   ##         "' >> .bashrc
 echo 'echo -e "       ##  ##   ##       ##     ## ##         "' >> .bashrc
 echo 'echo -e "       ## ##    ##       ##     ## ##         "' >> .bashrc
@@ -112,10 +113,19 @@ echo 'echo -e "       #####    #####    ##     ## ##         "' >> .bashrc
 echo 'echo -e "       ##  ##   ##       ##     ## ##         "' >> .bashrc
 echo 'echo -e "       ##   ##  ##       ##     ## ##         "' >> .bashrc
 echo 'echo -e "       ##    ## ######## #######   ########   "' >> .bashrc
-echo 'echo -e "welcome to the server $HOSTNAME" | lolcat' >> .bashrc
-echo 'echo -e "Script mod by Clrkz | OCS New Stye"' >> .bashrc
-echo 'echo -e "Type menu to display a list of commands"' >> .bashrc
-echo 'echo -e ""' >> .bashrc
+echo 'echo -e "                                              "' >> .bashrc
+echo 'echo -e "=============================================="' >> .bashrc
+echo 'echo -e "                                              "' >> .bashrc
+echo 'echo -e "                 AutoVPsScript                "|lolcat ' >> .bashrc
+echo 'echo -e "                                              "' >> .bashrc
+echo 'echo -e "             Welcome to the Server            "' >> .bashrc
+echo 'echo -e "                   $HOSTNAME                  " | lolcat' >> .bashrc
+echo 'echo -e "                                              "' >> .bashrc
+echo 'echo -e "=============================================="' >> .bashrc
+echo 'echo -e "                                              "' >> .bashrc
+echo 'echo -e "   Type menu to display a list of commands    "' >> .bashrc
+echo 'echo -e "                                              "' >> .bashrc
+
 
 # install webserver
 cd
