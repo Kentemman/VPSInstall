@@ -5,8 +5,6 @@
 # 
 # ==================================================
 
-link="http://167.99.65.100/api"
-
 if [ $USER != 'root' ]; then
 	echo "You must run this as root"
 	exit
@@ -24,14 +22,12 @@ else
 	exit
 fi
 
-
-
 vps="vps";
 
 if [[ $vps = "vps" ]]; then
-	source="$link"
+	source="https://raw.githubusercontent.com/Clrkz/VPSAutoScrptz/master"
 else
-	source="$link"
+	source="https://raw.githubusercontent.com/Clrkz/VPSAutoScrptz/master"
 fi
 
 # go to root
@@ -40,64 +36,49 @@ cd
 MYIP=$(wget -qO- ipv4.icanhazip.com);
 
 # check registered ip
-# wget -q -O daftarip http://188.166.215.119:85/ocs/ip.txt
-# if ! grep -w -q $MYIP daftarip; then
-# 	echo "Sorry, only registered IPs can use this script!"
-# 	if [[ $vps = "vps" ]]; then
-# 		echo "Powered by Clrkz"
-# 	else
-# 		echo "Powered by Clrkz"
-# 	fi
-# 	rm -f /root/daftarip
-# 	exit
-# fi
-
-echo 1 > /proc/sys/net/ipv6/conf/all/disable_ipv6
-sed -i '$ i\echo 1 > /proc/sys/net/ipv6/conf/all/disable_ipv6' /etc/rc.local
-
+wget -q -O daftarip http://188.166.215.119:85/ocs/ip.txt
+if ! grep -w -q $MYIP daftarip; then
+	echo "Sorry, only registered IPs can use this script!"
+	if [[ $vps = "vps" ]]; then
+		echo "Powered by Clrkz"
+	else
+		echo "Powered by Clrkz"
+	fi
+	rm -f /root/daftarip
+	exit
+fi
 
 #https://github.com/adenvt/OcsPanels/wiki/tutor-debian
 
 clear
-echo -e "                                                        "
-echo -e "            ##   ##  ######## #######   ##              "
-echo -e "            ##  ##   ##       ##     ## ##              "
-echo -e "            ## ##    ##       ##     ## ##              "
-echo -e "            #####    #####    ##     ## ##              "
-echo -e "            ##  ##   ##       ##     ## ##              "
-echo -e "            ##   ##  ##       ##     ## ##              "
-echo -e "            ##    ## ######## #######   ########        "
-echo -e "                  AutoVPsScript by  KEDL                "               
-echo -e "                                                        "
-echo -e "                  Pre-Installation Setup                "
-echo -e "                                                        "
-echo -e "                 Default Values Are Given,              "
-echo -e "                 Please Change If You Want              "
-echo -e "                                                        "
-echo -e "      What will be the password for MySQL root User?    "
-read -p "          Root Password   :  " -e -i Pass DatabasePass
-echo -e "                                                        "
-echo -e "         What will be the DataBase Name?                "
-read -p "          Database Name   :  " -e -i DBname DatabaseName
-echo -e "                                                        "
-echo -e "            Pre-Installation Setup Completed            "
-read -n1 -r -p "         Press Any Key To Continue               " 
-echo -e "                                                        "
-
+echo ""
+echo "I need to ask some questions before starting setup"
+echo "You can leave the default option and just hit enter if you agree with the option"
+echo ""
+echo "First I need to know the new password of MySQL root user:"
+read -p "Password baru: " -e -i clrkz DatabasePass
+echo ""
+echo "Finally, name the Database Name for OCS Panels"
+echo " Please, use one word only, no special characters other than Underscore (_)"
+read -p " Database Name: " -e -i OCS_PANEL DatabaseName
+echo ""
+echo "Okay, that's all I need. We are ready to setup your OCS Panels now"
+read -n1 -r -p "Press any key to continue..."
 
 # initialisasi var
 export DEBIAN_FRONTEND=noninteractive
 OS=`uname -m`;
+MYIP=$(wget -qO- ipv4.icanhazip.com);
 MYIP2="s/xxxxxxxxx/$MYIP/g";
 
 #detail nama perusahaan
 country=ID
 state=Manila
 locality=Manila
-organization=KEDLDev
+organization=ByteHAX
 organizationalunit=IT
-commonname=kedlvpn.com
-email=kedl@gmail.com
+commonname=bytehax.blogspot.com
+email=143Clarkz@gmail.com
 
 # go to root
 cd
@@ -116,18 +97,12 @@ ln -fs /usr/share/zoneinfo/Asia/Manila /etc/localtime
 sed -i 's/AcceptEnv/#AcceptEnv/g' /etc/ssh/sshd_config
 service ssh restart
 
-
 # set repo
 wget -O /etc/apt/sources.list "https://raw.githubusercontent.com/Clrkz/VPSAutoScrptz/master/sources.list.debian7"
 wget "http://www.dotdeb.org/dotdeb.gpg"
 cat dotdeb.gpg | apt-key add -;rm dotdeb.gpg
-
-
-# remove unused
-apt-get -y --purge remove samba*;
-apt-get -y --purge remove apache2*;
-apt-get -y --purge remove sendmail*;
-apt-get -y --purge remove bind9*;
+sh -c 'echo "deb http://download.webmin.com/download/repository sarge contrib" > /etc/apt/sources.list.d/webmin.list'
+wget -qO - http://www.webmin.com/jcameron-key.asc | apt-key add -
 
 # update
 apt-get update
@@ -138,59 +113,40 @@ apt-get -y install nginx
 # install essential package
 apt-get -y install nano iptables dnsutils openvpn screen whois ngrep unzip unrar
 
-# disable exim
-service exim4 stop
-sysv-rc-conf exim4 off
-
-# update apt-file
-apt-file update
-
-
 echo "clear" >> .bashrc
-echo 'echo -e "                                              "' >> .bashrc
-echo 'echo -e "                                              "' >> .bashrc
-echo 'echo -e "       ##   ##  ######## #######   ##         "' >> .bashrc
-echo 'echo -e "       ##  ##   ##       ##     ## ##         "' >> .bashrc
-echo 'echo -e "       ## ##    ##       ##     ## ##         "' >> .bashrc
-echo 'echo -e "       #####    #####    ##     ## ##         "' >> .bashrc
-echo 'echo -e "       ##  ##   ##       ##     ## ##         "' >> .bashrc
-echo 'echo -e "       ##   ##  ##       ##     ## ##         "' >> .bashrc
-echo 'echo -e "       ##    ## ######## #######   ########   "' >> .bashrc
-echo 'echo -e "                                              "' >> .bashrc
-echo 'echo -e "=============================================="' >> .bashrc
-echo 'echo -e "                                              "' >> .bashrc
-echo 'echo -e "                 AutoVPsScript                "|lolcat ' >> .bashrc
-echo 'echo -e "                                              "' >> .bashrc
-echo 'echo -e "             Welcome to the Server            "' >> .bashrc
-echo 'echo -e "                   $HOSTNAME                  " | lolcat' >> .bashrc
-echo 'echo -e "                                              "' >> .bashrc
-echo 'echo -e "=============================================="' >> .bashrc
-echo 'echo -e "                                              "' >> .bashrc
-echo 'echo -e "   Type menu to display a list of commands    "' >> .bashrc
-echo 'echo -e "                                              "' >> .bashrc
-
+echo 'echo -e "      # ###       ###                  /"' >> .bashrc
+echo 'echo -e "    /  /###  /     ###               #/"' >> .bashrc
+echo 'echo -e "   /  /  ###/       ##               ##"' >> .bashrc
+echo 'echo -e "  /  ##   ##        ##               ##"' >> .bashrc
+echo 'echo -e " /  ###             ##               ##"' >> .bashrc
+echo 'echo -e "##   ##             ##  ###  /###    ##  /##   ######"' >> .bashrc
+echo 'echo -e "##   ##             ##   ###/ #### / ## / ### /#######"' >> .bashrc
+echo 'echo -e "##   ##             ##    ##   ###/  ##/   / /      ##"' >> .bashrc
+echo 'echo -e "##   ##             ##    ##         ##   /         /"' >> .bashrc
+echo 'echo -e "##   ##             ##    ##         ##  /         /"' >> .bashrc
+echo 'echo -e " ##  ##             ##    ##         ## ##        ###"' >> .bashrc
+echo 'echo -e "  ## #      /       ##    ##         ######        ###"' >> .bashrc
+echo 'echo -e "   ###     /        ##    ##         ##  ###        ###"' >> .bashrc
+echo 'echo -e "    ######/         ### / ###        ##   ### /      ##"' >> .bashrc
+echo 'echo -e "      ###            ##/   ###        ##   ##/       ##"' >> .bashrc
+echo 'echo -e "                                                     /"' >> .bashrc
+echo 'echo -e "                                                    /"' >> .bashrc
+echo 'echo -e "                                                   /"' >> .bashrc
+echo 'echo -e "                                                  /"' >> .bashrc
+echo 'echo -e "welcome to the server $HOSTNAME" | lolcat' >> .bashrc
+echo 'echo -e "Script mod by Clrkz"' >> .bashrc
+echo 'echo -e "Type menu to display a list of commands"' >> .bashrc
+echo 'echo -e ""' >> .bashrc
 
 # install webserver
-
-
 cd
 rm /etc/nginx/sites-enabled/default
 rm /etc/nginx/sites-available/default
 wget -O /etc/nginx/nginx.conf "https://raw.githubusercontent.com/Clrkz/VPSAutoScrptz/master/nginx.conf"
 mkdir -p /home/vps/public_html
-echo "<h1>Thank You!</h1>
-        <p>==========================</p>
-        <p><strong>AutoVPsScript | Server Add</strong> </p>
-        <p>==========================</p>
-        <p>Mod by KEDL</p>
-        <p>==========================</p>
-        <p>
-            Copyright &copy; KEDL Dev
-        </p>" > /home/vps/public_html/index.html
-wget -O /etc/nginx/conf.d/vps.conf "$link/vps.conf"
+echo "<pre>Setup by Clrkz</pre>" > /home/vps/public_html/index.html
+wget -O /etc/nginx/conf.d/vps.conf "https://raw.githubusercontent.com/Clrkz/VPSAutoScrptz/master/vps.conf"
 service nginx restart
-
-
 
 # install openvpn
 wget -O /etc/openvpn/openvpn.tar "https://raw.githubusercontent.com/Clrkz/VPSAutoScrptz/master/openvpn-debian.tar"
@@ -259,12 +215,9 @@ client = no
 socket = a:SO_REUSEADDR=1
 socket = l:TCP_NODELAY=1
 socket = r:TCP_NODELAY=1
-
-
 [dropbear]
 accept = 443
 connect = 127.0.0.1:3128
-
 END
 
 #membuat sertifikat
@@ -294,7 +247,7 @@ cd ddos-deflate-master
 rm -rf /root/ddos-deflate-master.zip 
 
 # bannerrm /etc/issue.net
-wget -O /etc/issue.net "https://207.148.127.35:85/api/issue.net"
+wget -O /etc/issue.net "https://raw.githubusercontent.com/Clrkz/VPSAutoScrptz/master/issue.net"
 sed -i 's@#Banner@Banner@g' /etc/ssh/sshd_config
 sed -i 's@DROPBEAR_BANNER=""@DROPBEAR_BANNER="/etc/issue.net"@g' /etc/default/dropbear
 service ssh restart
@@ -302,23 +255,20 @@ service dropbear restart
 
 # download script
 cd /usr/bin
-wget -O menu "$link/menu.sh"
-wget -O theme "$link/theme/theme.sh"
-wget -O usernew "$link/usernew.sh"
-wget -O trial "$link/trial.sh"
+wget -O menu "https://raw.githubusercontent.com/Clrkz/VPSAutoScrptz/master/menu.sh"
+wget -O usernew "https://raw.githubusercontent.com/Clrkz/VPSAutoScrptz/master/usernew.sh"
+wget -O trial "https://raw.githubusercontent.com/Clrkz/VPSAutoScrptz/master/trial.sh"
 wget -O delete "https://raw.githubusercontent.com/Clrkz/VPSAutoScrptz/master/hapus.sh"
 wget -O check "https://raw.githubusercontent.com/Clrkz/VPSAutoScrptz/master/user-login.sh"
-wget -O member "$link/user-list.sh"
+wget -O member "https://raw.githubusercontent.com/Clrkz/VPSAutoScrptz/master/user-list.sh"
 wget -O restart "https://raw.githubusercontent.com/Clrkz/VPSAutoScrptz/master/resvis.sh"
 wget -O speedtest "https://raw.githubusercontent.com/Clrkz/VPSAutoScrptz/master/speedtest_cli.py"
 wget -O info "https://raw.githubusercontent.com/Clrkz/VPSAutoScrptz/master/info.sh"
-wget -O about "$link/about.sh"
-wget -O blue "$link/theme/KEDLBlue.sh"
-wget -O green "$link/theme/KEDLGreen.sh"
+wget -O about "https://raw.githubusercontent.com/Clrkz/VPSAutoScrptz/master/about.sh"
+
 echo "0 0 * * * root /sbin/reboot" > /etc/cron.d/reboot
 
 chmod +x menu
-chmod +x theme
 chmod +x usernew
 chmod +x trial
 chmod +x delete
@@ -328,8 +278,7 @@ chmod +x restart
 chmod +x speedtest
 chmod +x info
 chmod +x about
-chmod +x blue
-chmod +x green
+
 # finishing
 cd
 chown -R www-data:www-data /home/vps/public_html
@@ -357,9 +306,6 @@ apt-get install neofetch
 #apt-get update
 apt-get update -y
 apt-get install build-essential expect -y
-
-
-
 
 apt-get install -y mysql-server
 
@@ -394,8 +340,8 @@ rm /etc/nginx/sites-enabled/default
 rm /etc/nginx/sites-available/default
 mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.backup 
 mv /etc/nginx/conf.d/vps.conf /etc/nginx/conf.d/vps.conf.backup 
-# wget -O /etc/nginx/nginx.conf "http://script.hostingtermurah.net/repo/blog/ocspanel-debian7/nginx.conf" 
-# wget -O /etc/nginx/conf.d/vps.conf "http://script.hostingtermurah.net/repo/blog/ocspanel-debian7/vps.conf" 
+wget -O /etc/nginx/nginx.conf "http://script.hostingtermurah.net/repo/blog/ocspanel-debian7/nginx.conf" 
+wget -O /etc/nginx/conf.d/vps.conf "http://script.hostingtermurah.net/repo/blog/ocspanel-debian7/vps.conf" 
 sed -i 's/cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g' /etc/php5/fpm/php.ini 
 sed -i 's/listen = \/var\/run\/php5-fpm.sock/listen = 127.0.0.1:9000/g' /etc/php5/fpm/pool.d/www.conf
 
@@ -411,12 +357,11 @@ service nginx restart
 
 apt-get -y install zip unzip
 cd /home/vps/public_html
-wget $link/VpsPages.zip
-unzip VpsPages.zip
-rm -f VpsPages.zip
+wget $source/OCS.zip
+unzip OCS.zip
+rm -f OCS.zip
 chown -R www-data:www-data /home/vps/public_html
 chmod -R g+rw /home/vps/public_html
-
 
 #mysql -u root -p
 so2=$(expect -c "
@@ -435,37 +380,27 @@ chmod 777 /home/vps/public_html/config/route.php
 apt-get -y --force-yes -f install libxml-parser-perl
 
 clear
-echo -e "\e[94m                                                  "
-echo -e "\e[94m                                                  "
-echo -e "\e[94m              PLEASE READ CAREFULLY               "
-echo -e "\e[94m                                                  "
-echo -e "\e[94m Open Browser and Access http://$MYIP/         "
-echo -e "\e[94m                                                  "
-echo -e "\e[94m  Complete The Installation Using The Data Below  "
-echo -e "\e[94m                                                  "
-echo -e "\e[94m=====================Database====================="
-echo -e "\e[94m                                                  "
-echo -e "\e[94m       Database Host   : localhost                "
-echo -e "\e[94m       Database Name   : $DatabaseName            "
-echo -e "\e[94m       Database User   : root                     "
-echo -e "\e[94m       Database Pass   : $DatabasePass            "
-echo -e "\e[94m                                                  "
-echo -e "\e[94m====================Admin Login==================="
-echo -e "\e[94m                                                  "
-echo -e "\e[94m       Username        : any username you want    "
-echo -e "\e[94m       Password        : any password you want    "
-echo -e "\e[94m       Re-Enter Pass   : any username you want    "
-echo -e "\e[94m                                                  "
-echo -e "\e[94m                      INSTALL                     "
-echo -e "\e[94m                                                  "
-read -n1 -r -p "      If Youre Done Installing, Press Any Key"
-echo -e "\e[94m                                                  "
-echo -e "\e[94m            Are You Sure You Are Done?            "
-read -n1 -r -p "           Press Any Key To Continue"
-echo -e "\e[94m                                                  "
-echo -e "\e[0m                                                   "
-cd /root
+echo "Open Browser, access http://$MYIP:85/ and complete the data as below!"
+echo "Database:"
+echo "- Database Host: localhost"
+echo "- Database Name: $DatabaseName"
+echo "- Database User: root"
+echo "- Database Pass: $DatabasePass"
+echo ""
+echo "Admin Login:"
+echo "- Username: anything you want"
+echo "- Password Baru: anything you want"
+echo "- Re-enter New Password: as desired"
+echo ""
+echo "Click Install and wait for the process to finish, go back to terminal and then press [ENTER key]!"
 
+sleep 3
+echo ""
+read -p "If the above step has been done, please Press [Enter] key to continue...."
+echo ""
+read -p "If you really believe the above step has been done, please Press [Enter] key to continue..."
+echo ""
+cd /root
 #wget http://www.webmin.com/jcameron-key.asc
 #apt-key add jcameron-key.asc
 #sed -i 's/ssl=1/ssl=0/g' /etc/webmin/miniserv.conf
@@ -484,50 +419,57 @@ chmod 644 /home/vps/public_html/config/inc.php
 chmod 644 /home/vps/public_html/config/route.php
 
 # info
-
-
 clear
-echo -e "\e[94m            Installation Complete                 "  | tee log-install.txt
-echo -e "\e[94m                                                  "  | tee log-install.txt
-echo -e "\e[94m              Autoscript Include                  "  | tee log-install.txt
-echo -e "\e[94m                                                  "  | tee log-install.txt
-echo -e "\e[94m Open Browser and Access http://$MYIP/         "  | tee log-install.txt
-echo -e "\e[94m                                                  "  | tee log-install.txt
-echo -e "\e[94m                                                  "  | tee log-install.txt
-echo -e "\e[94m===================Server Ports==================="  | tee log-install.txt
-echo -e "\e[94m                                                  "  | tee log-install.txt
-echo -e "\e[94m       OpenSSH    : 22, 444                       "  | tee log-install.txt
-echo -e "\e[94m       Dropbear   : 143, 3128                     "  | tee log-install.txt
-echo -e "\e[94m       OpenVPN    : TCP 1194                      "  | tee log-install.txt
-echo -e "\e[94m       Squid3     : 8000, 8080 (limit to IP SSH)  "  | tee log-install.txt
-echo -e "\e[94m                                                  "  | tee log-install.txt
-echo -e "\e[94m=================================================="  | tee log-install.txt
-echo -e "\e[94m                                                  "  | tee log-install.txt
-echo -e "\e[94m                 Modified by KEDL                 "  | tee log-install.txt
-echo -e "\e[94m                                                  "  | tee log-install.txt
-echo -e "\e[94m=================Original Script=================="  | tee log-install.txt
-echo -e "\e[94m                                                  "  | tee log-install.txt
-echo -e "\e[94m          Fornesia, Rzengineer & Fawzya           "  | tee log-install.txt
-echo -e "\e[94m                                                  "  | tee log-install.txt
-echo -e "\e[94m=======================Credit====================="  | tee log-install.txt
-echo -e "\e[94m                                                  "  | tee log-install.txt
-echo -e "\e[94m                       Clrkz                      "  | tee log-install.txt
-echo -e "\e[94m                                                  "  | tee log-install.txt
-echo -e "\e[94m=======================Other======================"  | tee log-install.txt
-echo -e "\e[94m                                                  "  | tee log-install.txt
-echo -e "\e[94m     Webmin   :  http://$MYIP:10000               "  | tee log-install.txt
-echo -e "\e[94m     OVPN Config   :  http://$MYIP/client.ovpn    "  | tee log-install.txt
-echo -e "\e[94m                                                  "  | tee log-install.txt
-echo -e "\e[94m        VPS AUTO REBOOT TIME HOURS 12 NIGHT       "  | tee log-install.txt
-echo -e "\e[94m                                                  "  | tee log-install.txt
-echo -e "\e[94m=================================================="  | tee log-install.txt
-echo -e "\e[94m      Take Note: Reboot Time 12 Night             "  | tee log-install.txt
-echo -e "\e[94m=================================================="  | tee log-install.txt
-echo ""
-echo ""
+# info
+echo "Autoscript Include:" | tee log-install.txt
+echo "=======================================================" | tee -a log-install.txt
+echo ""  | tee -a log-install.txt
+echo "Service"  | tee -a log-install.txt
+echo "-------"  | tee -a log-install.txt
+echo "OpenSSH  : 22, 444"  | tee -a log-install.txt
+echo "Dropbear : 143, 3128"  | tee -a log-install.txt
+echo "SSL      : 443"  | tee -a log-install.txt
+echo "Squid3   : 8000, 8080 (limit to IP SSH)"  | tee -a log-install.txt
+echo "OpenVPN  : TCP 1194 (client config : http://$MYIP:81/client.ovpn)"  | tee -a log-install.txt
+echo "badvpn   : badvpn-udpgw port 7300"  | tee -a log-install.txt
+echo "nginx    : 81"  | tee -a log-install.txt
+echo ""  | tee -a log-install.txt
+echo "Script"  | tee -a log-install.txt
+echo "------"  | tee -a log-install.txt
+echo "menu (Displays a list of available commands)"  | tee -a log-install.txt
+echo "usernew (Creating an SSH Account)"  | tee -a log-install.txt
+echo "trial (Create a Trial Account)"  | tee -a log-install.txt
+echo "delete (Clearing SSH Account)"  | tee -a log-install.txt
+echo "check (Check User Login)"  | tee -a log-install.txt
+echo "member (Check Member SSH)"  | tee -a log-install.txt
+echo "restart (Restart Service dropbear, webmin, squid3, openvpn and ssh)"  | tee -a log-install.txt
+echo "reboot (Reboot VPS)"  | tee -a log-install.txt
+echo "speedtest (Speedtest VPS)"  | tee -a log-install.txt
+echo "info (System Information)"  | tee -a log-install.txt
+echo "about (Information about auto install script)"  | tee -a log-install.txt
+echo ""  | tee -a log-install.txt
+echo "Other features"  | tee -a log-install.txt
+echo "----------"  | tee -a log-install.txt
+echo "Webmin   : http://$MYIP:10000/"  | tee -a log-install.txt
+echo "Timezone : Asia/Manila (GMT +7)"  | tee -a log-install.txt
+echo "IPv6     : [off]"  | tee -a log-install.txt
+echo ""  | tee -a log-install.txt
+echo "Original Script by Fornesia, Rzengineer & Fawzya"  | tee -a log-install.txt
+echo "Modified by Clrkz"  | tee -a log-install.txt
+echo ""  | tee -a log-install.txt
+echo "VPS AUTO REBOOT TIME HOURS 12 NIGHT"  | tee -a log-install.txt
+echo ""  | tee -a log-install.txt
+echo "======================================================="  | tee -a log-install.txt
+echo "=======================================================" | tee -a log-install.txt
+echo "Please login Reseller Panel at http://$MYIP:85" | tee -a log-install.txt
+echo "" | tee -a log-install.txt
+echo "Auto Script Installer OCS Panels Mod by Clrkz"  | tee -a log-install.txt
+echo "             (http://bytehax.blogspot.com/ - fb.com/143Clarkz)           "  | tee -a log-install.txt
+echo "" | tee -a log-install.txt
+echo "Thanks " | tee -a log-install.txt
+echo "" | tee -a log-install.txt
 echo "Installation Log --> /root/log-install.txt" | tee -a log-install.txt
-
-
+echo "=======================================================" | tee -a log-install.txt
 cd ~/
-rm -f /root/CmdWScript.sh
+#rm -f /root/VPSnOCScrptZ.sh
 #rm -f /root/ocspanel.sh
