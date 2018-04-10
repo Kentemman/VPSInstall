@@ -36,17 +36,7 @@ cd
 MYIP=$(wget -qO- ipv4.icanhazip.com);
 
 # check registered ip
-wget -q -O daftarip http://188.166.215.119:85/ocs/ip.txt
-if ! grep -w -q $MYIP daftarip; then
-	echo "Sorry, only registered IPs can use this script!"
-	if [[ $vps = "vps" ]]; then
-		echo "Powered by Clrkz"
-	else
-		echo "Powered by Clrkz"
-	fi
-	rm -f /root/daftarip
-	exit
-fi
+
 
 #https://github.com/adenvt/OcsPanels/wiki/tutor-debian
 
