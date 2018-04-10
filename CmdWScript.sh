@@ -40,20 +40,30 @@ MYIP=$(wget -qO- ipv4.icanhazip.com);
 
 #https://github.com/adenvt/OcsPanels/wiki/tutor-debian
 
-clear
-echo ""
-echo "I need to ask some questions before starting setup"
-echo "You can leave the default option and just hit enter if you agree with the option"
-echo ""
-echo "First I need to know the new password of MySQL root user:"
-read -p "Password baru: " -e -i clrkz DatabasePass
-echo ""
-echo "Finally, name the Database Name for OCS Panels"
-echo " Please, use one word only, no special characters other than Underscore (_)"
-read -p " Database Name: " -e -i OCS_PANEL DatabaseName
-echo ""
-echo "Okay, that's all I need. We are ready to setup your OCS Panels now"
-read -n1 -r -p "Press any key to continue..."
+echo -e "                                                        "
+echo -e "            ##   ##  ######## #######   ##              "
+echo -e "            ##  ##   ##       ##     ## ##              "
+echo -e "            ## ##    ##       ##     ## ##              "
+echo -e "            #####    #####    ##     ## ##              "
+echo -e "            ##  ##   ##       ##     ## ##              "
+echo -e "            ##   ##  ##       ##     ## ##              "
+echo -e "            ##    ## ######## #######   ########        "             
+echo -e "                                                        "
+echo -e "                  Pre-Installation Setup                "
+echo -e "                                                        "
+echo -e "                 Default Values Are Given,              "
+echo -e "                 Please Change If You Want              "
+echo -e "                                                        "
+echo -e "      What will be the password for MySQL root User?    "
+read -p "          Root Password   :  " -e -i Pass DatabasePass
+echo -e "                                                        "
+echo -e "         What will be the DataBase Name?                "
+read -p "          Database Name   :  " -e -i DBname DatabaseName
+echo -e "                                                        "
+echo -e "            Pre-Installation Setup Completed            "
+read -n1 -r -p "         Press Any Key To Continue               " 
+echo -e "   
+
 
 # initialisasi var
 export DEBIAN_FRONTEND=noninteractive
@@ -365,7 +375,7 @@ echo "$so2"
 chmod 777 /home/vps/public_html/config
 chmod 777 /home/vps/public_html/config/inc.php
 chmod 777 /home/vps/public_html/config/route.php
-chmod 777 application/config/database.php
+
 
 apt-get -y --force-yes -f install libxml-parser-perl
 
