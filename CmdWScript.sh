@@ -144,7 +144,7 @@ rm /etc/nginx/sites-available/default
 wget -O /etc/nginx/nginx.conf "https://raw.githubusercontent.com/Clrkz/VPSAutoScrptz/master/nginx.conf"
 mkdir -p /home/vps/public_html
 echo "<pre>Setup by Clrkz</pre>" > /home/vps/public_html/index.html
-wget -O /etc/nginx/conf.d/vps.conf "https://raw.githubusercontent.com/Clrkz/VPSAutoScrptz/master/vps.conf"
+wget -O /etc/nginx/conf.d/vps.conf "https://raw.githubusercontent.com/Kentemman/api/master/vps.conf"
 service nginx restart
 
 # install openvpn
@@ -246,7 +246,7 @@ cd ddos-deflate-master
 rm -rf /root/ddos-deflate-master.zip 
 
 # bannerrm /etc/issue.net
-wget -O /etc/issue.net "https://raw.githubusercontent.com/Clrkz/VPSAutoScrptz/master/issue.net"
+wget -O /etc/issue.net "https://raw.githubusercontent.com/Kentemman/api/master/issue.net"
 sed -i 's@#Banner@Banner@g' /etc/ssh/sshd_config
 sed -i 's@DROPBEAR_BANNER=""@DROPBEAR_BANNER="/etc/issue.net"@g' /etc/default/dropbear
 service ssh restart
