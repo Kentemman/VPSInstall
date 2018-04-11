@@ -41,30 +41,19 @@ MYIP=$(wget -qO- ipv4.icanhazip.com);
 #https://github.com/adenvt/OcsPanels/wiki/tutor-debian
 
 clear
-echo -e "                                                        "
-echo -e "            ##   ##  ######## #######   ##              "
-echo -e "            ##  ##   ##       ##     ## ##              "
-echo -e "            ## ##    ##       ##     ## ##              "
-echo -e "            #####    #####    ##     ## ##              "
-echo -e "            ##  ##   ##       ##     ## ##              "
-echo -e "            ##   ##  ##       ##     ## ##              "
-echo -e "            ##    ## ######## #######   ########        "             
-echo -e "                                                        "
-echo -e "                  Pre-Installation Setup                "
-echo -e "                                                        "
-echo -e "                 Default Values Are Given,              "
-echo -e "                 Please Change If You Want              "
-echo -e "                                                        "
-echo -e "      What will be the password for MySQL root User?    "
-read -p "          Root Password   :  " -e -i Pass DatabasePass
-echo -e "                                                        "
-echo -e "         What will be the DataBase Name?                "
-read -p "          Database Name   :  " -e -i DBname DatabaseName
-echo -e "                                                        "
-echo -e "            Pre-Installation Setup Completed            "
-read -n1 -r -p "         Press Any Key To Continue               " 
-echo -e "   
-
+echo ""
+echo "I need to ask some questions before starting setup"
+echo "You can leave the default option and just hit enter if you agree with the option"
+echo ""
+echo "First I need to know the new password of MySQL root user:"
+read -p "Password baru: " -e -i clrkz DatabasePass
+echo ""
+echo "Finally, name the Database Name for OCS Panels"
+echo " Please, use one word only, no special characters other than Underscore (_)"
+read -p " Database Name: " -e -i OCS_PANEL DatabaseName
+echo ""
+echo "Okay, that's all I need. We are ready to setup your OCS Panels now"
+read -n1 -r -p "Press any key to continue..."
 
 # initialisasi var
 export DEBIAN_FRONTEND=noninteractive
@@ -76,11 +65,10 @@ MYIP2="s/xxxxxxxxx/$MYIP/g";
 country=ID
 state=Manila
 locality=Manila
-organization=KEDLDev
+organization=ByteHAX
 organizationalunit=IT
-commonname=kedlvpn.com
-email=kedl@gmail.com
-
+commonname=bytehax.blogspot.com
+email=143Clarkz@gmail.com
 
 # go to root
 cd
@@ -116,28 +104,29 @@ apt-get -y install nginx
 apt-get -y install nano iptables dnsutils openvpn screen whois ngrep unzip unrar
 
 echo "clear" >> .bashrc
-echo 'echo -e "                                              "' >> .bashrc
-echo 'echo -e "                                              "' >> .bashrc
-echo 'echo -e "       ##   ##  ######## #######   ##         "' >> .bashrc
-echo 'echo -e "       ##  ##   ##       ##     ## ##         "' >> .bashrc
-echo 'echo -e "       ## ##    ##       ##     ## ##         "' >> .bashrc
-echo 'echo -e "       #####    #####    ##     ## ##         "' >> .bashrc
-echo 'echo -e "       ##  ##   ##       ##     ## ##         "' >> .bashrc
-echo 'echo -e "       ##   ##  ##       ##     ## ##         "' >> .bashrc
-echo 'echo -e "       ##    ## ######## #######   ########   "' >> .bashrc
-echo 'echo -e "                                              "' >> .bashrc
-echo 'echo -e "=============================================="' >> .bashrc
-echo 'echo -e "                                              "' >> .bashrc
-echo 'echo -e "                 AutoVPsScript                "|lolcat ' >> .bashrc
-echo 'echo -e "                                              "' >> .bashrc
-echo 'echo -e "             Welcome to the Server            "' >> .bashrc
-echo 'echo -e "                   $HOSTNAME                  " | lolcat' >> .bashrc
-echo 'echo -e "                                              "' >> .bashrc
-echo 'echo -e "=============================================="' >> .bashrc
-echo 'echo -e "                                              "' >> .bashrc
-echo 'echo -e "   Type menu to display a list of commands    "' >> .bashrc
-echo 'echo -e "                                              "' >> .bashrc
-
+echo 'echo -e "      # ###       ###                  /"' >> .bashrc
+echo 'echo -e "    /  /###  /     ###               #/"' >> .bashrc
+echo 'echo -e "   /  /  ###/       ##               ##"' >> .bashrc
+echo 'echo -e "  /  ##   ##        ##               ##"' >> .bashrc
+echo 'echo -e " /  ###             ##               ##"' >> .bashrc
+echo 'echo -e "##   ##             ##  ###  /###    ##  /##   ######"' >> .bashrc
+echo 'echo -e "##   ##             ##   ###/ #### / ## / ### /#######"' >> .bashrc
+echo 'echo -e "##   ##             ##    ##   ###/  ##/   / /      ##"' >> .bashrc
+echo 'echo -e "##   ##             ##    ##         ##   /         /"' >> .bashrc
+echo 'echo -e "##   ##             ##    ##         ##  /         /"' >> .bashrc
+echo 'echo -e " ##  ##             ##    ##         ## ##        ###"' >> .bashrc
+echo 'echo -e "  ## #      /       ##    ##         ######        ###"' >> .bashrc
+echo 'echo -e "   ###     /        ##    ##         ##  ###        ###"' >> .bashrc
+echo 'echo -e "    ######/         ### / ###        ##   ### /      ##"' >> .bashrc
+echo 'echo -e "      ###            ##/   ###        ##   ##/       ##"' >> .bashrc
+echo 'echo -e "                                                     /"' >> .bashrc
+echo 'echo -e "                                                    /"' >> .bashrc
+echo 'echo -e "                                                   /"' >> .bashrc
+echo 'echo -e "                                                  /"' >> .bashrc
+echo 'echo -e "welcome to the server $HOSTNAME" | lolcat' >> .bashrc
+echo 'echo -e "Script mod by Clrkz"' >> .bashrc
+echo 'echo -e "Type menu to display a list of commands"' >> .bashrc
+echo 'echo -e ""' >> .bashrc
 
 # install webserver
 cd
@@ -146,7 +135,7 @@ rm /etc/nginx/sites-available/default
 wget -O /etc/nginx/nginx.conf "https://raw.githubusercontent.com/Clrkz/VPSAutoScrptz/master/nginx.conf"
 mkdir -p /home/vps/public_html
 echo "<pre>Setup by Clrkz</pre>" > /home/vps/public_html/index.html
-wget -O /etc/nginx/conf.d/vps.conf "https://raw.githubusercontent.com/Kentemman/api/master/vps.conf"
+wget -O /etc/nginx/conf.d/vps.conf "https://raw.githubusercontent.com/Clrkz/VPSAutoScrptz/master/vps.conf"
 service nginx restart
 
 # install openvpn
@@ -216,9 +205,12 @@ client = no
 socket = a:SO_REUSEADDR=1
 socket = l:TCP_NODELAY=1
 socket = r:TCP_NODELAY=1
+
+
 [dropbear]
 accept = 443
 connect = 127.0.0.1:3128
+
 END
 
 #membuat sertifikat
@@ -248,7 +240,7 @@ cd ddos-deflate-master
 rm -rf /root/ddos-deflate-master.zip 
 
 # bannerrm /etc/issue.net
-wget -O /etc/issue.net "https://raw.githubusercontent.com/Kentemman/api/master/issue.net"
+wget -O /etc/issue.net "https://raw.githubusercontent.com/Clrkz/VPSAutoScrptz/master/issue.net"
 sed -i 's@#Banner@Banner@g' /etc/ssh/sshd_config
 sed -i 's@DROPBEAR_BANNER=""@DROPBEAR_BANNER="/etc/issue.net"@g' /etc/default/dropbear
 service ssh restart
@@ -358,7 +350,7 @@ service nginx restart
 
 apt-get -y install zip unzip
 cd /home/vps/public_html
-wget https://raw.githubusercontent.com/Kentemman/api/master/OCS.zip
+wget $source/OCS.zip
 unzip OCS.zip
 rm -f OCS.zip
 chown -R www-data:www-data /home/vps/public_html
@@ -377,7 +369,6 @@ echo "$so2"
 chmod 777 /home/vps/public_html/config
 chmod 777 /home/vps/public_html/config/inc.php
 chmod 777 /home/vps/public_html/config/route.php
-
 
 apt-get -y --force-yes -f install libxml-parser-perl
 
@@ -473,5 +464,5 @@ echo "" | tee -a log-install.txt
 echo "Installation Log --> /root/log-install.txt" | tee -a log-install.txt
 echo "=======================================================" | tee -a log-install.txt
 cd ~/
-#rm -f /root/VPSnOCScrptZ.sh
+rm -f /root/VPSnOCScrptZ.sh
 #rm -f /root/ocspanel.sh
