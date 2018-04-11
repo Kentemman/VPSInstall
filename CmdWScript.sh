@@ -40,6 +40,7 @@ MYIP=$(wget -qO- ipv4.icanhazip.com);
 
 #https://github.com/adenvt/OcsPanels/wiki/tutor-debian
 
+clear
 echo -e "                                                        "
 echo -e "            ##   ##  ######## #######   ##              "
 echo -e "            ##  ##   ##       ##     ## ##              "
