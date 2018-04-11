@@ -75,10 +75,11 @@ MYIP2="s/xxxxxxxxx/$MYIP/g";
 country=ID
 state=Manila
 locality=Manila
-organization=ByteHAX
+organization=KEDLDev
 organizationalunit=IT
-commonname=bytehax.blogspot.com
-email=143Clarkz@gmail.com
+commonname=kedlvpn.com
+email=kedl@gmail.com
+
 
 # go to root
 cd
