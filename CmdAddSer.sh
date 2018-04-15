@@ -5,7 +5,7 @@
 # 
 # ==================================================
 
-link="http://167.99.65.100/api"
+link="https://raw.githubusercontent.com/Kentemman/api"
 
 MYIP=$(wget -qO- ipv4.icanhazip.com);
 
