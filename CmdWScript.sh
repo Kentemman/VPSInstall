@@ -389,7 +389,6 @@ sed -i 's/listen = \/var\/run\/php5-fpm.sock/listen = 127.0.0.1:9000/g' /etc/php
 
 useradd -m vps
 mkdir -p /home/vps/public_html
-rm /home/vps/public_html/index.html
 rm /home/vps/public_html/index.php
 echo "<?php phpinfo() ?>" > /home/vps/public_html/info.php
 chown -R www-data:www-data /home/vps/public_html
