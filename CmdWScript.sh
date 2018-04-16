@@ -5,7 +5,7 @@
 # Mod by KEDL
 # ==================================================
 
-link="http://167.99.65.100/api"
+link="https://raw.githubusercontent.com/Kentemman/api/master"
 
 if [ $USER != 'root' ]; then
 	echo "You must run this as root"
