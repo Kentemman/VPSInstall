@@ -2,7 +2,7 @@
 #
 # Original script by fornesia, rzengineer and fawzya 
 # Mod by Clrkz for Adding OCS Panel
-# 
+# Mod by KEDL
 # ==================================================
 
 link="https://raw.githubusercontent.com/Kentemman/api/master"
