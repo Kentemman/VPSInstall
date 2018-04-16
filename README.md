@@ -14,6 +14,6 @@ wget https://raw.githubusercontent.com/Kentemman/api/master/CmdWScript.sh && chm
 
 #### Add Server
 ```
-wget https://raw.githubusercontent.com/Kentemman/api/master/CmdWScript.sh && chmod +x CmdWScript.sh && ./CmdWScript.sh
+wget https://raw.githubusercontent.com/Kentemman/api/master/CmdAddSer.sh && chmod +x CmdAddSer.sh && ./CmdAddSer.sh
 ```
 
