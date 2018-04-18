@@ -1,5 +1,3 @@
-- [Sponsors](#sponsors)
-- [License](#license)
 
 # VPSInstall
 
