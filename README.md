@@ -1,4 +1,4 @@
-﻿[![PRs Welcome](#)
+﻿[![PRs Welcome](http://kedl.site)
 
 # VPSInstall
 
