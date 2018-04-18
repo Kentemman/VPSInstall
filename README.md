@@ -1,3 +1,5 @@
+[![Throughput Graph](https://graphs.waffle.io/cdnjs/cdnjs/throughput.svg)](https://waffle.io/cdnjs/cdnjs/metrics/throughput)
+
 # VPSInstall
 
 Service: OpenSSH: 22,444
