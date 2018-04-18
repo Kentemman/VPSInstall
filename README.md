@@ -1,4 +1,4 @@
-﻿[!PRs[Welcome](#)
+﻿[![PRs Welcome](#)
 
 # VPSInstall
 
