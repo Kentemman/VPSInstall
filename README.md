@@ -1,3 +1,4 @@
+﻿[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/cdnjs/cdnjs/issues?utf8=%E2%9C%93&q=is%3Aopen%20is%3Aissue%20label%3AHacktoberfest%20-label%3A%22in%20progress%22%20)
 
 # VPSInstall
 
